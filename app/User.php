@@ -33,6 +33,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function profile()
     {
         if ($this->user_type == self::TYPE_STUDENT)
