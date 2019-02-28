@@ -12,13 +12,16 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens, HasRoles;
 
+    const TYPE_STUDENT = 1;
+    const TYPE_TEACHER = 2;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_type',
     ];
 
     /**
@@ -29,4 +32,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function profile()
+    {
+        if ($this->user_type == self::TYPE_STUDENT)
+            return $this->hasOne(StudentProfile::class);
+        if ($this->user_type == self::TYPE_TEACHER)
+            return $this->hasOne(TeacherProfile::class);
+    }
 }
