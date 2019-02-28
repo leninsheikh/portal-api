@@ -35,10 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        $this->mapTeacherRoutes();
+        $this->mapStudentRoutes();
+
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-        $this->mapStudentRoutes();
 
         //
     }
@@ -72,11 +74,22 @@ class RouteServiceProvider extends ServiceProvider
              ->group(base_path('routes/api.php'));
     }
 
+    /**
+     *
+     */
     protected function mapStudentRoutes()
     {
         Route::prefix('api/student')
              ->middleware(['auth:api', 'role:student'])
              ->namespace($this->namespace)
              ->group(base_path('routes/student.php'));
+    }
+
+    protected function mapTeacherRoutes()
+    {
+        Route::prefix('api/teacher')
+             ->middleware(['auth:api', 'role:teacher'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/teacher.php'));
     }
 }

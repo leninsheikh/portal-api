@@ -31,7 +31,7 @@ Route::get('rp', function () {
 //    $permission = Permission::create(['name' => 'student_basic']);
 //    $permission = Permission::create(['name' => 'teacher_basic']);
 //    return Role::all();
-    App\User::find(1)->assignRole('student');
+    App\User::find(2)->assignRole('teacher');
     return 'gg';
 });
 
